@@ -16,13 +16,25 @@ class Board extends Component {
     };
   }
 
+  componentDidMount = () => {
+    // console.log("Component did mount was called");
+    axios.get('https://inspiration-board.herokuapp.com/boards/nora/cards')
+    .then((response) => {
+      // console.log(response.data);
+      this.setState({cards: response.data});
+    })
+    .catch((error) => {
+      this.setState({error: error.message});
+    });
+  }
+
   renderCardList = () => {
-    const cardList = CARD_DATA.cards.map((card, index) => {
+    const cardList = this.state.cards.map((item, index) => {
       return (
         <Card
           key={index}
-          text={card.text}
-          emoji={card.emoji}
+          text={item.card.text}
+          emoji={item.card.emoji}
         />
       );
     });
