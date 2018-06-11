@@ -20,7 +20,7 @@ class Board extends Component {
     // console.log("Component did mount was called");
     axios.get('https://inspiration-board.herokuapp.com/boards/nora/cards')
     .then((response) => {
-      // console.log(response.data);
+      console.log(response.data);
       this.setState({cards: response.data});
     })
     .catch((error) => {
@@ -33,6 +33,7 @@ class Board extends Component {
       return (
         <Card
           key={index}
+          id={item.card.id}
           text={item.card.text}
           emoji={item.card.emoji}
         />
