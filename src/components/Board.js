@@ -36,10 +36,23 @@ class Board extends Component {
           id={item.card.id}
           text={item.card.text}
           emoji={item.card.emoji}
+          removeCard={this.removeCard}
         />
       );
     });
     return cardList;
+  }
+
+  removeCard = (id) => {
+    axios.delete(`https://inspiration-board.herokuapp.com/boards/nora/cards/${id}`)
+    .then((response) => {
+      console.log(response.data);
+      this.componentDidMount();
+    })
+    .catch((error) => {
+      console.log(error);
+      this.setState({error: error.message});
+    });
   }
 
   render() {
