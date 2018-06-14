@@ -30,10 +30,13 @@ class Board extends Component {
 
   addCard = (card) => {
     const cards = this.state.cards;
+    console.log(this.state.cards);
 
     axios.post('https://inspiration-board.herokuapp.com/boards/nora/cards', card)
     .then((response) => {
-      cards.push(card);
+      console.log(response);
+      card.id = response.data.card.id;
+      cards.push({card: card});
       this.setState({
         cards,
         message: `Successfully added card`
@@ -49,6 +52,7 @@ class Board extends Component {
 
   renderCardList = () => {
     const cardList = this.state.cards.map((item, index) => {
+      // console.log(item);
       return (
         <Card
           key={index}
@@ -65,7 +69,7 @@ class Board extends Component {
   removeCard = (id) => {
     axios.delete(`https://inspiration-board.herokuapp.com/boards/nora/cards/${id}`)
     .then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       this.componentDidMount();
     })
     .catch((error) => {
