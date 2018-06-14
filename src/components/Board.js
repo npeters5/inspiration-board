@@ -28,6 +28,25 @@ class Board extends Component {
     });
   }
 
+  addCard = (card) => {
+    const cards = this.state.cards;
+
+    axios.post('https://inspiration-board.herokuapp.com/boards/nora/cards', card)
+    .then((response) => {
+      cards.push(card);
+      this.setState({
+        cards,
+        message: `Successfully added card`
+      });
+      alert( `Successfully added card`)
+    })
+    .catch((error) => {
+      this.setState({
+        message: error.message,
+      });
+    });
+  }
+
   renderCardList = () => {
     const cardList = this.state.cards.map((item, index) => {
       return (
@@ -59,6 +78,7 @@ class Board extends Component {
     return (
       <div className="board">
         {this.renderCardList()}
+        <NewCardForm addCardCallback={this.addCard}/>
       </div>
     )
   }
