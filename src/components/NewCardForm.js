@@ -15,8 +15,9 @@ class NewCardForm extends Component {
   }
 
   onFieldChange = (event) => {
+    console.log(event.target.name);
     const fieldName = event.target.name;
-    const fieldValue = fieldName === 'age' ? parseInt(event.target.value) : event.target.value;
+    const fieldValue = event.target.value
     const updateState = {};
     updateState[fieldName] = fieldValue;
     this.setState(updateState);
@@ -35,10 +36,8 @@ class NewCardForm extends Component {
 
   onFormSubmit = (event) => {
     event.preventDefault();
-    // if (this.valid()) {
-      this.props.addCardCallback(this.state);
-      this.clearForm();
-    // }
+    this.props.addCardCallback(this.state);
+    this.clearForm();
   }
 
   render() {
@@ -51,7 +50,7 @@ class NewCardForm extends Component {
             <label className="new-card-form__form-label" htmlFor="text">Message: </label>
             <input
               className="new-card-form__form-textarea"
-              name="message"
+              name="text"
               value={this.state.text}
               type="text"
               onChange={this.onFieldChange}
@@ -60,10 +59,10 @@ class NewCardForm extends Component {
             <select
               className="new-card-form__form-textarea"
               name="emoji"
-              value={this.state.emoji}
-              type="select"
+              defaultValue = ''
+              value={this.state.value}
               onChange={this.onFieldChange}>
-            {EMOJI_LIST.map(x => <option key={x}>{emoji.getUnicode(x)}</option>)};
+              {EMOJI_LIST.map(x => <option key={x} value={x}>{emoji.getUnicode(x)}</option>)};
             </select>
           </div>
           <input type="submit" value="Add Card" />
@@ -74,7 +73,7 @@ class NewCardForm extends Component {
 }
 
 NewCardForm.propTypes = {
-  addPetCallback: PropTypes.func.isRequired,
+  addCardCallback: PropTypes.func.isRequired,
 }
 
 export default NewCardForm;
