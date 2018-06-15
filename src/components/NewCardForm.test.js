@@ -66,44 +66,41 @@ describe('NewCardForm', () => {
       // Force the onChange event
       wrapper.update();
       nameField = wrapper.find(`[name="${field}"]`);
-      console.log(nameField.getElement());
-      console.log(nameField.getElement().props);
-
 
       // Assert
       expect(nameField.getElement().props.value).toEqual(value);
     });
   });
 
-  // xtest('NewCardForm can submit', () => {
-  //   // Arrange
-  //   // Shallow mounted the wrapper
-  //
-  //   const mockAddPetCallback = jest.fn();
-  //
-  //   const wrapper = shallow(<NewPetForm addPetCallback={ mockAddPetCallback }/>);
-  //
-  //   wrapper.find(`[name='name']`).simulate('change', {
-  //     target: {
-  //       name: 'name',
-  //       value: 'Bob',
-  //     },
-  //   });
-  //
-  //   // force textfields change
-  //   wrapper.update();
-  //
-  //   wrapper.find('form').simulate('submit', {
-  //     preventDefault: () => {},
-  //   });
-  //
-  //   wrapper.update();
-  //
-  //   const nameField = wrapper.find('[name="name"]');
-  //
-  //   // Assert
-  //   expect(nameField.getElement().props.value).toEqual('');
-  //   expect(mockAddPetCallback).toHaveBeenCalled();
-  // });
+  test('NewCardForm can submit', () => {
+    // Arrange
+    // Shallow mounted the wrapper
+
+    const mockAddCardCallback = jest.fn();
+
+    const wrapper = shallow(<NewCardForm addCardCallback={ mockAddCardCallback }/>);
+
+    wrapper.find(`[name='text']`).simulate('change', {
+      target: {
+        name: 'text',
+        value: 'Be the change',
+      },
+    });
+
+    // force textfields change
+    wrapper.update();
+
+    wrapper.find('form').simulate('submit', {
+      preventDefault: () => {},
+    });
+
+    wrapper.update();
+
+    const nameField = wrapper.find('[name="text"]');
+
+    // Assert
+    expect(nameField.getElement().props.value).toEqual('');
+    expect(mockAddCardCallback).toHaveBeenCalled();
+  });
 
 });
