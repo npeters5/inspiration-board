@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import emoji from 'emoji-dictionary';
 import './NewCardForm.css';
 
-const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog"]
+const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog", "robot"]
 
 class NewCardForm extends Component {
   constructor() {
@@ -15,7 +15,6 @@ class NewCardForm extends Component {
   }
 
   onFieldChange = (event) => {
-    console.log(event.target.name);
     const fieldName = event.target.name;
     const fieldValue = event.target.value
     const updateState = {};
@@ -59,8 +58,7 @@ class NewCardForm extends Component {
             <select
               className="new-card-form__form-textarea"
               name="emoji"
-              defaultValue = ''
-              value={this.state.value}
+              value={this.state.emoji}
               onChange={this.onFieldChange}>
               {EMOJI_LIST.map(x => <option key={x} value={x}>{emoji.getUnicode(x)}</option>)};
             </select>
